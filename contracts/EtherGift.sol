@@ -15,4 +15,10 @@ contract EtherGift{
     recipient = toAddress;
   }
 
+  function withdraw(string answer) public {
+    require(msg.sender == recipient);
+    require(keccak256(abi.encodePacked(answer)) == security_question1);
+    msg.sender.transfer(address(this).balance);
+  }
+
 }
