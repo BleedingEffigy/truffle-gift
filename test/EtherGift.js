@@ -14,10 +14,10 @@ contract("EtherGift", accounts => {
   describe("#withdraw()", ()=> {
     it("Should withdraw funds upon correctly answering security questions", async () => {
       const etherGift = await EtherGift.deployed();
-      const val = await etherGift.withdraw("Puerto Vallarta", { from: accounts[1] });
-      
+      const prevBalance = await web3.eth.getBalance(accounts[1]);
+      await etherGift.withdraw("Puerto Vallarta", "DOG",{ from: accounts[1] });
 
-      assert.equal(web3.eth.getBalance(val.receipt.to).toString(), 0, "The funds were not transferred");
+      assert.isAbove(parseInt(web3.eth.getBalance(accounts[1])), parseInt(prevBalance), "The funds were not transferred");
     });
   });
 });

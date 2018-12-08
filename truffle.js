@@ -12,6 +12,10 @@
  *   },
  */
 
+ const HDWalletProvider = require("truffle-hdwallet-provider");
+
+ require('dotenv').config()
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
@@ -20,6 +24,12 @@ module.exports = {
       host: "localhost",
       port: 8545,
       network_id: "*"
+    },
+    rinkeby: {
+      provider: () => new HDWalletProvider(process.env.MNENOMIC, "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY),
+      from: "0x0313Cc9bC2024334f09BE0324688CB8FD1FF7346".toLowerCase(),
+      network_id: 4,
+      gas: 4700000
     }
   }
 };
